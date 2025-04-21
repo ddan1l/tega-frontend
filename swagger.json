@@ -35,22 +35,58 @@
                             "$ref": "#/definitions/res.SuccessResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
-                        }
-                    },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.IncorrectPasswordError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.UserNotFoundError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ValidationFailedError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -79,19 +115,19 @@
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.AuthError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -128,22 +164,58 @@
                             "$ref": "#/definitions/res.SuccessResponse"
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.AppError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
-                    "401": {
-                        "description": "Unauthorized",
+                    "409": {
+                        "description": "Conflict",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.AlreadyExistsError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "422": {
+                        "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/res.ErrorResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ValidationFailedError"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -151,6 +223,23 @@
         }
     },
     "definitions": {
+        "errs.AlreadyExistsError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "ALREADY_EXISTS"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "User already exists."
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 409
+                }
+            }
+        },
         "errs.AppError": {
             "type": "object",
             "properties": {
@@ -163,6 +252,74 @@
                 },
                 "status": {
                     "type": "integer"
+                }
+            }
+        },
+        "errs.AuthError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "AUTH_FAILED"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Failded authorize user."
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 400
+                }
+            }
+        },
+        "errs.IncorrectPasswordError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "INCORRECT_PASSWORD"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Incorrect password."
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 401
+                }
+            }
+        },
+        "errs.UserNotFoundError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "USER_NOT_FOUND"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "User not found."
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 400
+                }
+            }
+        },
+        "errs.ValidationFailedError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "VALIDATION"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Validation error."
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 422
                 }
             }
         },

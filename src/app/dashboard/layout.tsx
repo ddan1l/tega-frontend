@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../globals.css';
 import { ThemeProvider } from '@/providers/teme-provider';
+import { DashboardHeader } from './components/DashboadHeader';
+import { AuthProvider } from '@/providers/auth-context';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -16,9 +18,12 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <head />
             <body>
-                <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-                    {children}
-                </ThemeProvider>
+                <AuthProvider>
+                    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+                        <DashboardHeader />
+                        {children}
+                    </ThemeProvider>
+                </AuthProvider>
             </body>
         </html>
     );
