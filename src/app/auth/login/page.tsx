@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthForm } from '../components/AuthForm';
-import { useAuthForm } from '../hooks/useAuthForm';
+import { useAuthForm } from '../hooks/use-auth-form';
 
 export default function LoginPage() {
     const { formData, error, isLoading, handleChange, handleSubmit } = useAuthForm('login');

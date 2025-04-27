@@ -2,26 +2,26 @@ import { useState } from 'react';
 import { api } from '@/lib/api';
 import { definitions } from '@/types/api';
 import { useRouter } from 'next/navigation';
+import { getSubdomain } from '@/utils/get-subdomain';
 
 type AuthMode = 'login' | 'register';
 
 export type AuthError = definitions['errs.AppError'] & {
     details: {
         name: string;
-        email: string;
-        password: string;
+        slug: string;
     };
 };
 
-export const useAuthForm = (mode: AuthMode) => {
+export const useProjectForm = () => {
     const [formData, setFormData] = useState({
         name: '',
-        email: '',
-        password: '',
+        slug: '',
     });
 
     const [error, setError] = useState<AuthError | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+
     const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,27 +35,24 @@ export const useAuthForm = (mode: AuthMode) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         setIsLoading(true);
         setError(null);
 
         try {
             let result;
 
-            if (mode === 'login') {
-                result = await api.auth.login({
-                    email: formData.email,
-                    password: formData.password,
-                });
-            } else {
-                result = await api.auth.register({
-                    email: formData.email,
-                    password: formData.password,
-                    name: formData.name,
-                });
-            }
+            result = await api.auth.projects();
 
             if (result.success) {
-                router.push('/dashboard');
+                const sub = getSubdomain();
+
+                if (!sub) {
+                    router.push('/projects');
+                } else {
+                    router.push('/app');
+                }
+
                 return true;
             }
         } catch (err) {

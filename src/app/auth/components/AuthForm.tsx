@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { AuthError } from '../hooks/useAuthForm';
+import { AuthError } from '../hooks/use-auth-form';
 import { cn } from '@/lib/utils';
 import { CircleAlert } from 'lucide-react';
 
@@ -20,8 +20,8 @@ type AuthFormProps = {
 
 export const AuthForm = ({ mode, formData, error, isLoading, handleChange, handleSubmit }: AuthFormProps) => {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <div className="w-96 p-6 shadow-lg">
+        <div className="flex min-h-screen items-center justify-center bg-muted">
+            <div className="p-6 w-full max-w-sm rounded-xl border bg-card text-card-foreground shadow">
                 <h2 className="text-center text-xl font-semibold mb-6">{mode === 'login' ? 'Login' : 'Register'}</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -30,6 +30,7 @@ export const AuthForm = ({ mode, formData, error, isLoading, handleChange, handl
                             error={error?.details?.name}
                             name="name"
                             type="text"
+                            autoComplete="fullName"
                             placeholder="Full Name"
                             value={formData.name}
                             onChange={handleChange}
@@ -42,6 +43,7 @@ export const AuthForm = ({ mode, formData, error, isLoading, handleChange, handl
                         error={error?.details?.email}
                         name="email"
                         type="email"
+                        autoComplete="email"
                         placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
@@ -53,6 +55,7 @@ export const AuthForm = ({ mode, formData, error, isLoading, handleChange, handl
                         error={error?.details?.password}
                         name="password"
                         type="password"
+                        autoComplete="password"
                         placeholder="Password"
                         value={formData.password}
                         onChange={handleChange}

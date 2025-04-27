@@ -1,3 +1,5 @@
+'use client';
+
 import {
     Cloud,
     CreditCard,
@@ -31,11 +33,13 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export function UserMenu() {
+import { definitions } from '@/types/api';
+
+export function UserMenu({ initialUser }: { initialUser: definitions['res.UserResponse'] }) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">Account</Button>
+                <Button variant="outline">{initialUser.fullname}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

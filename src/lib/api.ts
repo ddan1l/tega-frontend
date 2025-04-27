@@ -13,7 +13,8 @@ type ApiError<E = definitions['errs.AppError']> = {
 
 type ApiResponse<T, E = definitions['errs.AppError']> = ApiSuccess<T> | ApiError<E>;
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+const BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || (process.browser ? 'http://tega.local/api' : 'http://backend:8080/api');
 
 async function apiRequest<T, E = definitions['errs.AppError']>(
     endpoint: string,
@@ -23,36 +24,45 @@ async function apiRequest<T, E = definitions['errs.AppError']>(
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    const response = await fetch(url, {
+    options = {
         ...options,
         headers: {
             'Content-Type': 'application/json',
             ...options.headers,
         },
+    };
+
+    if (!process.browser) {
+        const { cookies } = await import('next/headers');
+        options.headers = {
+            ...options.headers,
+            Cookie: (await cookies()).toString(),
+        };
+    }
+
+    const response = await fetch(url, {
+        ...options,
         credentials: 'include',
     });
 
-    const data = await response.json();
+    const res = await response.json();
 
     if (!response.ok) {
-        throw data.error as E;
+        throw res.error as E;
     }
 
-    return {
-        success: true,
-        data,
-    };
+    return res;
 }
 
 export const api = {
     auth: {
-        login: (credentials: definitions['req.LoginUserRequest']) =>
+        login: (data: definitions['req.LoginUserRequest']) =>
             apiRequest<
                 definitions['res.SuccessResponse'],
                 definitions['errs.IncorrectPasswordError'] | definitions['errs.UserNotFoundError']
             >('/auth/login', {
                 method: 'POST',
-                body: JSON.stringify(credentials),
+                body: JSON.stringify(data),
             }),
 
         logout: () =>
@@ -64,6 +74,19 @@ export const api = {
             apiRequest<definitions['res.SuccessResponse'], definitions['errs.AlreadyExistsError']>('/auth/register', {
                 method: 'POST',
                 body: JSON.stringify(data),
+            }),
+
+        user: () =>
+            apiRequest<definitions['res.UserResponse'], definitions['errs.ForbiddenError']>('/user', {
+                method: 'GET',
+            }),
+
+        projects: () =>
+            apiRequest<
+                definitions['res.UserProjectsResponse'],
+                definitions['errs.BadRequestError'] | definitions['errs.ForbiddenError']
+            >('/user/projects', {
+                method: 'GET',
             }),
     },
 };
