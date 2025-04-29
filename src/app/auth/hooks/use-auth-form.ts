@@ -69,7 +69,7 @@ export const useAuthForm = (mode: AuthMode) => {
                 });
 
                 if (result.success) {
-                    router.push('/projects');
+                    router.push('/projects/create');
                     return true;
                 }
             }

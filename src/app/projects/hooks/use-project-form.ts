@@ -4,8 +4,6 @@ import { definitions } from '@/types/api';
 import { useRouter } from 'next/navigation';
 import { getSubdomain } from '@/utils/get-subdomain';
 
-type AuthMode = 'login' | 'register';
-
 export type AuthError = definitions['errs.AppError'] & {
     details: {
         name: string;

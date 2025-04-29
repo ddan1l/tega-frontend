@@ -110,6 +110,43 @@ export interface paths {
       };
     };
   };
+  "/user/project": {
+    /** Create Project */
+    post: {
+      parameters: {
+        body: {
+          /** Create project request */
+          request: definitions["req.CreateProjectRequest"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["res.SuccessWithDataResponse"] & {
+            data?: definitions["res.UserProjectResponse"];
+          };
+        };
+        /** Bad Request */
+        400: {
+          schema: definitions["res.ErrorResponse"] & {
+            error?: definitions["errs.BadRequestError"];
+          };
+        };
+        /** Forbidden */
+        403: {
+          schema: definitions["res.ErrorResponse"] & {
+            error?: definitions["errs.ForbiddenError"];
+          };
+        };
+        /** Unprocessable Entity */
+        422: {
+          schema: definitions["res.ErrorResponse"] & {
+            error?: definitions["errs.ValidationFailedError"];
+          };
+        };
+      };
+    };
+  };
   "/user/projects": {
     /** UserProjects */
     get: {
@@ -200,6 +237,11 @@ export interface definitions {
     /** @example 422 */
     status?: number;
   };
+  "req.CreateProjectRequest": {
+    description?: string;
+    name: string;
+    slug: string;
+  };
   "req.LoginUserRequest": {
     email: string;
     password: string;
@@ -223,6 +265,9 @@ export interface definitions {
     /** @example true */
     success?: boolean;
   };
+  "res.UserProjectResponse": {
+    project?: definitions["user_dto.ProjectDto"];
+  };
   "res.UserProjectsResponse": {
     projects?: definitions["user_dto.ProjectDto"][];
   };
@@ -235,6 +280,7 @@ export interface definitions {
     id?: number;
   };
   "user_dto.ProjectDto": {
+    description?: string;
     id?: number;
     name?: string;
     slug?: string;

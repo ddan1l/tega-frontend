@@ -1,7 +1,7 @@
 'use client';
 
+import { CreateProjectForm } from '../components/CreateProjectForm';
 import { useProjectForm } from '../hooks/use-project-form';
-import { CreateProjectForm } from './CreateProjectForm';
 
 export default function ProjectsPage() {
     const { formData, error, isLoading, handleChange, handleSubmit } = useProjectForm();

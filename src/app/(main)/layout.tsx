@@ -4,7 +4,7 @@ export const metadata = {
     icon: '/favicon.ico',
 };
 
-import { ThemeProvider } from '@/providers/teme-provider';
+import { ThemeProvider } from '@/providers/theme-provider';
 import '../globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

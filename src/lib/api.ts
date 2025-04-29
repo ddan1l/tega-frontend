@@ -75,17 +75,15 @@ export const api = {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
-
+    },
+    user: {
         user: () =>
             apiRequest<definitions['res.UserResponse'], definitions['errs.ForbiddenError']>('/user', {
                 method: 'GET',
             }),
 
         projects: () =>
-            apiRequest<
-                definitions['res.UserProjectsResponse'],
-                definitions['errs.BadRequestError'] | definitions['errs.ForbiddenError']
-            >('/user/projects', {
+            apiRequest<definitions['res.UserProjectsResponse'], definitions['errs.BadRequestError']>('/user/projects', {
                 method: 'GET',
             }),
     },

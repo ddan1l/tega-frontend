@@ -1,7 +1,8 @@
 'use client';
 
+import { getInitialUser } from '@/hooks/use-initial-user';
 import { definitions } from '@/types/api';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 type AuthContextType = {
     user: definitions['res.UserResponse'] | null | undefined;
@@ -18,15 +19,13 @@ export function AuthProvider({
 }) {
     const [user, setUser] = useState(initialUser);
 
-    // useEffect(() => {
-    //     const syncAuth = async () => {
-    //         const res = await fetch('http://localhost:8080/auth/user', {
-    //             credentials: 'include',
-    //         });
-    //         setUser(await res.json());
-    //     };
-    //     syncAuth();
-    // }, []);
+    useEffect(() => {
+        const syncAuth = async () => {
+            const initialUser = await getInitialUser();
+            setUser(initialUser);
+        };
+        syncAuth();
+    }, []);
 
     return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 }

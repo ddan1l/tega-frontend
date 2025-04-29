@@ -1,18 +1,29 @@
-'use client';
+import { api } from '@/lib/api';
+import ProjectsList from './components/ProjectsList';
+import { definitions } from '@/types/api';
+import { redirect } from 'next/navigation';
 
-import { CreateProjectForm } from './components/CreateProjectForm';
-import { useProjectForm } from './hooks/use-project-form';
+async function getProjects(): Promise<definitions['user_dto.ProjectDto'][] | null> {
+    try {
+        const res = await api.user.projects();
 
-export default function ProjectsPage() {
-    const { formData, error, isLoading, handleChange, handleSubmit } = useProjectForm();
+        return res.success ? res.data.projects || [] : null;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+}
 
-    return (
-        <CreateProjectForm
-            formData={formData}
-            error={error}
-            isLoading={isLoading}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-        />
-    );
+export default async function ProjectsPage() {
+    const projects = await getProjects();
+
+    if (!projects) {
+        redirect(`/forbidden`);
+    }
+
+    if (projects?.length) {
+        return <ProjectsList projects={projects} />;
+    } else {
+        redirect(`/projects/create`);
+    }
 }
