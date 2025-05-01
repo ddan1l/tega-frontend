@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { api } from '@/lib/api';
 import { definitions } from '@/types/api';
 import { useRouter } from 'next/navigation';
-import { getSubdomain } from '@/utils/get-subdomain';
 
-export type AuthError = definitions['errs.AppError'] & {
+export type ProjectFormError = definitions['errs.AppError'] & {
     details: {
         name: string;
         slug: string;
+        description: string;
     };
 };
 
@@ -15,14 +15,15 @@ export const useProjectForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         slug: '',
+        description: '',
     });
 
-    const [error, setError] = useState<AuthError | null>(null);
+    const [error, setError] = useState<ProjectFormError | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const router = useRouter();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
@@ -40,29 +41,29 @@ export const useProjectForm = () => {
         try {
             let result;
 
-            result = await api.auth.projects();
+            result = await api.user.createProject({
+                name: formData.name,
+                slug: formData.slug,
+                description: formData.description,
+            });
 
             if (result.success) {
-                const sub = getSubdomain();
+                const href = (slug: string) =>
+                    `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/app`;
 
-                if (!sub) {
-                    router.push('/projects');
-                } else {
-                    router.push('/app');
-                }
+                location.href = href(result.data?.project?.slug || '');
 
                 return true;
             }
         } catch (err) {
             handleAuthError(err as definitions['errs.AppError']);
-        } finally {
             setIsLoading(false);
         }
         return false;
     };
 
     const handleAuthError = (error: definitions['errs.AppError']) => {
-        setError(error as AuthError);
+        setError(error as ProjectFormError);
     };
 
     return {

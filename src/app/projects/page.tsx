@@ -2,6 +2,7 @@ import { api } from '@/lib/api';
 import ProjectsList from './components/ProjectsList';
 import { definitions } from '@/types/api';
 import { redirect } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 async function getProjects(): Promise<definitions['user_dto.ProjectDto'][] | null> {
     try {
@@ -22,7 +23,11 @@ export default async function ProjectsPage() {
     }
 
     if (projects?.length) {
-        return <ProjectsList projects={projects} />;
+        return (
+            <>
+                <ProjectsList projects={projects} />
+            </>
+        );
     } else {
         redirect(`/projects/create`);
     }

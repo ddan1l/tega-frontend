@@ -8,7 +8,7 @@ import { CircleAlert } from 'lucide-react';
 type AuthFormProps = {
     mode: 'login' | 'register';
     formData: {
-        name: string;
+        fullname: string;
         email: string;
         password: string;
     };
@@ -27,12 +27,12 @@ export const AuthForm = ({ mode, formData, error, isLoading, handleChange, handl
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {mode === 'register' && (
                         <Input
-                            error={error?.details?.name}
-                            name="name"
+                            error={error?.details?.fullname}
+                            name="fullname"
                             type="text"
                             autoComplete="fullName"
                             placeholder="Full Name"
-                            value={formData.name}
+                            value={formData.fullname}
                             onChange={handleChange}
                             className="w-full"
                             required

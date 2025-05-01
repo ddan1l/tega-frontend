@@ -1,17 +1,19 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { AuthError } from '../hooks/use-project-form';
+import { ProjectFormError } from '../hooks/use-project-form';
 import { cn } from '@/lib/utils';
 import { CircleAlert } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 
 type AuthFormProps = {
     formData: {
         name: string;
         slug: string;
+        description: string;
     };
-    error: AuthError | null;
+    error: ProjectFormError | null;
     isLoading: boolean;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
 };
 
@@ -41,6 +43,17 @@ export const CreateProjectForm = ({ formData, error, isLoading, handleChange, ha
                         value={formData.slug}
                         onChange={handleChange}
                         className="w-full"
+                    />
+
+                    <Textarea
+                        error={error?.details?.description}
+                        name="description"
+                        autoComplete="description"
+                        placeholder="Description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        className="w-full"
+                        required
                     />
 
                     <Button type="submit" className="w-full mt-2" disabled={isLoading}>

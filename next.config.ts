@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
     /* config options here */
-    allowedDevOrigins: ['tega.local', 'super.tega.local'],
+    allowedDevOrigins: ['tega.local', '*.tega.local'],
 };
 
 export default nextConfig;

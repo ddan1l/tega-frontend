@@ -14,7 +14,7 @@ type ApiError<E = definitions['errs.AppError']> = {
 type ApiResponse<T, E = definitions['errs.AppError']> = ApiSuccess<T> | ApiError<E>;
 
 const BASE_URL =
-    process.env.NEXT_PUBLIC_API_URL || (process.browser ? 'http://tega.local/api' : 'http://backend:8080/api');
+    process.env.NEXT_PUBLIC_API_URL || (process.browser ? `${location.origin}/api` : 'http://backend:8080/api');
 
 async function apiRequest<T, E = definitions['errs.AppError']>(
     endpoint: string,
@@ -71,7 +71,10 @@ export const api = {
             }),
 
         register: (data: definitions['req.RegisterUserRequest']) =>
-            apiRequest<definitions['res.SuccessResponse'], definitions['errs.AlreadyExistsError']>('/auth/register', {
+            apiRequest<
+                definitions['res.SuccessResponse'],
+                definitions['errs.AlreadyExistsError'] | definitions['errs.ValidationFailedError']
+            >('/auth/register', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
@@ -85,6 +88,16 @@ export const api = {
         projects: () =>
             apiRequest<definitions['res.UserProjectsResponse'], definitions['errs.BadRequestError']>('/user/projects', {
                 method: 'GET',
+            }),
+        createProject: (data: definitions['req.CreateProjectRequest']) =>
+            apiRequest<
+                definitions['res.UserProjectResponse'],
+                | definitions['errs.BadRequestError']
+                | definitions['errs.ForbiddenError']
+                | definitions['errs.ValidationFailedError']
+            >('/user/project', {
+                method: 'POST',
+                body: JSON.stringify(data),
             }),
     },
 };

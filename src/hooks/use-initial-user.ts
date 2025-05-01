@@ -12,6 +12,6 @@ export async function getInitialUser() {
         redirect(`/auth/login`);
     } catch (e) {
         console.log(e);
-        redirect(`/auth/login`);
+        //redirect(`/auth/login`);
     }
 }

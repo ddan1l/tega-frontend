@@ -8,7 +8,7 @@ type AuthMode = 'login' | 'register';
 
 export type AuthError = definitions['errs.AppError'] & {
     details: {
-        name: string;
+        fullname: string;
         email: string;
         password: string;
     };
@@ -16,7 +16,7 @@ export type AuthError = definitions['errs.AppError'] & {
 
 export const useAuthForm = (mode: AuthMode) => {
     const [formData, setFormData] = useState({
-        name: '',
+        fullname: '',
         email: '',
         password: '',
     });
@@ -65,7 +65,7 @@ export const useAuthForm = (mode: AuthMode) => {
                 result = await api.auth.register({
                     email: formData.email,
                     password: formData.password,
-                    fullname: formData.name,
+                    fullname: formData.fullname,
                 });
 
                 if (result.success) {
