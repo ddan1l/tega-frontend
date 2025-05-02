@@ -17,7 +17,13 @@ type AuthFormProps = {
     handleSubmit: (e: React.FormEvent) => void;
 };
 
-export const CreateProjectForm = ({ formData, error, isLoading, handleChange, handleSubmit }: AuthFormProps) => {
+export const CreateProjectForm = ({
+    formData,
+    error,
+    isLoading,
+    handleChange,
+    handleSubmit,
+}: AuthFormProps) => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-muted">
             <div className="p-6 w-full max-w-sm rounded-xl border bg-card text-card-foreground shadow">
@@ -53,7 +59,6 @@ export const CreateProjectForm = ({ formData, error, isLoading, handleChange, ha
                         value={formData.description}
                         onChange={handleChange}
                         className="w-full"
-                        required
                     />
 
                     <Button type="submit" className="w-full mt-2" disabled={isLoading}>
@@ -61,7 +66,10 @@ export const CreateProjectForm = ({ formData, error, isLoading, handleChange, ha
                     </Button>
 
                     {error && !error.details && (
-                        <span className={cn('text-rose-600 flex items-center gap-2 text-sm')} data-slot="error">
+                        <span
+                            className={cn('text-rose-600 flex items-center gap-2 text-sm')}
+                            data-slot="error"
+                        >
                             <CircleAlert width={15} />
                             {error.message}
                         </span>

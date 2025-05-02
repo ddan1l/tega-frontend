@@ -21,8 +21,6 @@ export const useProjectForm = () => {
     const [error, setError] = useState<ProjectFormError | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const router = useRouter();
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({

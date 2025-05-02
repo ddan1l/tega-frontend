@@ -21,7 +21,12 @@ export default async function RootLayout({
             <head />
             <body>
                 <AuthProvider initialUser={initialUser}>
-                    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
                         {children}
                     </ThemeProvider>
                 </AuthProvider>

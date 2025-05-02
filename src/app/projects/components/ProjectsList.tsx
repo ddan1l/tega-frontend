@@ -4,13 +4,17 @@ import { definitions } from '@/types/api';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export default function ProjectsList({ projects }: { projects: definitions['user_dto.ProjectDto'][] }) {
+export default function ProjectsList({
+    projects,
+}: {
+    projects: definitions['project_dto.ProjectDto'][];
+}) {
     const href = (slug: string) =>
         `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/app`;
 
     const projectItems = projects.map((project) => (
         <a href={href(project?.slug || '')} key={project.id} className="w-full max-w-md">
-            <Alert className="hover:border-indigo-500 ">
+            <Alert className="hover:border-zinc-950">
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>{project.name}</AlertTitle>
                 <AlertDescription>{project.description}</AlertDescription>
@@ -19,8 +23,9 @@ export default function ProjectsList({ projects }: { projects: definitions['user
     ));
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-muted">
-            <div className="flex flex-col gap-2 items-center w-full">
+        <div className="flex min-h-screen bg-muted items-center justify-center">
+            <div className="flex p-6 max-w-sm rounded-xl border bg-card text-card-foreground shadow flex-col gap-2 items-center w-full">
+                <h2 className="text-center text-xl font-semibold mb-6">Your projects</h2>
                 {projectItems}{' '}
                 <Link className="mt-2 w-full max-w-md" href={'/projects/create'}>
                     <Button type="submit" className="w-full cursor-pointer">

@@ -4,7 +4,7 @@ import { definitions } from '@/types/api';
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
-async function getProjects(): Promise<definitions['user_dto.ProjectDto'][] | null> {
+async function getProjects(): Promise<definitions['project_dto.ProjectDto'][] | null> {
     try {
         const res = await api.user.projects();
 

@@ -237,6 +237,16 @@ export interface definitions {
     /** @example 422 */
     status?: number;
   };
+  "project_dto.ProjectDto": {
+    /** @example test description */
+    description?: string;
+    /** @example 1 */
+    id?: number;
+    /** @example test */
+    name?: string;
+    /** @example test */
+    slug?: string;
+  };
   "req.CreateProjectRequest": {
     description?: string;
     name: string;
@@ -266,10 +276,10 @@ export interface definitions {
     success?: boolean;
   };
   "res.UserProjectResponse": {
-    project?: definitions["user_dto.ProjectDto"];
+    project?: definitions["project_dto.ProjectDto"];
   };
   "res.UserProjectsResponse": {
-    projects?: definitions["user_dto.ProjectDto"][];
+    projects?: definitions["project_dto.ProjectDto"][];
   };
   "res.UserResponse": {
     /** @example john@john.com */
@@ -278,12 +288,6 @@ export interface definitions {
     fullName?: string;
     /** @example 1 */
     id?: number;
-  };
-  "user_dto.ProjectDto": {
-    description?: string;
-    id?: number;
-    name?: string;
-    slug?: string;
   };
 }
 
