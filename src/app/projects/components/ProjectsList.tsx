@@ -13,13 +13,13 @@ export default function ProjectsList({
         `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/app`;
 
     const projectItems = projects.map((project) => (
-        <a href={href(project?.slug || '')} key={project.id} className="w-full max-w-md">
+        <Link href={href(project?.slug || '')} key={project.id} className="w-full max-w-md">
             <Alert className="hover:border-zinc-950">
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>{project.name}</AlertTitle>
                 <AlertDescription>{project.description}</AlertDescription>
             </Alert>
-        </a>
+        </Link>
     ));
 
     return (

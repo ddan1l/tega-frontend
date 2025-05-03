@@ -125,3 +125,7 @@
 .sidebar-container {
   border-right-width: 0;
 }
+
+button {
+  cursor: pointer;
+}
