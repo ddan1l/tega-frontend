@@ -1,7 +1,7 @@
 import '../globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { AuthProvider } from '@/providers/auth-provider';
-import { getInitialUser } from '@/hooks/use-initial-user';
+import { fetchInitialUser } from '@/providers/api/fetch-initial-user';
 
 export const metadata = {
     title: 'Tega',
@@ -14,7 +14,7 @@ export default async function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const initialUser = await getInitialUser();
+    const initialUser = await fetchInitialUser();
 
     return (
         <html lang="en" suppressHydrationWarning>

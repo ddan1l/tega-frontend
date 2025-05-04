@@ -1,8 +1,8 @@
 'use client';
 
-import { getInitialUser } from '@/hooks/use-initial-user';
 import { definitions } from '@/types/api';
 import { createContext, useEffect, useState } from 'react';
+import { fetchInitialUser } from './api/fetch-initial-user';
 
 type AuthContextType = {
     user: definitions['res.UserResponse'] | null | undefined;
@@ -21,7 +21,7 @@ export function AuthProvider({
 
     useEffect(() => {
         const syncAuth = async () => {
-            const initialUser = await getInitialUser();
+            const initialUser = await fetchInitialUser();
             setUser(initialUser);
         };
         syncAuth();

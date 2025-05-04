@@ -1,22 +1,12 @@
 import { api } from '@/lib/api';
-import ProjectsList from './components/ProjectsList';
 import { definitions } from '@/types/api';
 import { redirect } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 
-async function getProjects(): Promise<definitions['project_dto.ProjectDto'][] | null> {
-    try {
-        const res = await api.user.projects();
-
-        return res.success ? res.data.projects || [] : null;
-    } catch (e) {
-        console.error(e);
-        return null;
-    }
-}
+import ProjectsList from './components/ProjectsList';
+import { fetchInitialProjects } from '@/providers/api/fetch-projects';
 
 export default async function ProjectsPage() {
-    const projects = await getProjects();
+    const projects = await fetchInitialProjects();
 
     if (!projects) {
         redirect(`/forbidden`);

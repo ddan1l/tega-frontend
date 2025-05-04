@@ -23,15 +23,15 @@ import {
 } from '@/components/ui/sidebar';
 import { NavMain } from './sidebar/nav-main';
 import { NavUser } from './sidebar/nav-user';
-import { NavProjects } from './sidebar/nax-projects';
-import { TeamSwitcher } from './sidebar/team-switcher';
+import { NavProjects } from './sidebar/nax-projects2';
+import { ProjectsSwitcher } from './sidebar/nav-projects';
 
 // This is sample data.
 const data = {
     user: {
         name: 'shadcn',
         email: 'm@example.com',
-        avatar: '/avatars/shadcn.jpg',
+        avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg/avatars/shadcn.jpg',
     },
     teams: [
         {
@@ -160,7 +160,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar className="sidebar-container" collapsible="icon" {...props}>
             <SidebarHeader>
-                <TeamSwitcher teams={data.teams} />
+                <ProjectsSwitcher />
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain} />
