@@ -1,11 +1,17 @@
 'use client';
 
 import { definitions } from '@/types/api';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { fetchInitialUser } from './api/fetch-initial-user';
+import { fetchInitialProjects } from './api/fetch-projects';
+
+type UsertDto = definitions['res.UserResponse'];
 
 type AuthContextType = {
-    user: definitions['res.UserResponse'] | null | undefined;
+    user: UsertDto | null | undefined;
+    isLoading: boolean;
+    error: definitions['errs.AppError'] | null;
+    refreshUser: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -18,14 +24,37 @@ export function AuthProvider({
     initialUser?: definitions['res.UserResponse'] | null;
 }) {
     const [user, setUser] = useState(initialUser);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<definitions['errs.AppError'] | null>(null);
 
-    useEffect(() => {
-        const syncAuth = async () => {
-            const initialUser = await fetchInitialUser();
-            setUser(initialUser);
-        };
-        syncAuth();
+    const getUser = useCallback(async (): Promise<UsertDto | null> => {
+        try {
+            return await fetchInitialUser();
+        } catch (e) {
+            throw e;
+        }
     }, []);
 
-    return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
+    const refreshUser = useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const userData = await getUser();
+            setUser(userData || null);
+        } catch (e) {
+            setError(e as definitions['errs.AppError']);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [getUser]);
+
+    const contextValue: AuthContextType = {
+        user,
+        refreshUser,
+        isLoading,
+        error,
+    };
+
+    return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

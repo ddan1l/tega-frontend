@@ -1,6 +1,5 @@
 'use client';
 
-import { api } from '@/lib/api';
 import { definitions } from '@/types/api';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { fetchInitialProjects } from './api/fetch-projects';
@@ -18,9 +17,18 @@ type ProjectsContextType = {
 
 const ProjectsContext = createContext<ProjectsContextType | undefined>(undefined);
 
-export function ProjectProvider({ children }: { children: React.ReactNode }) {
-    const [projects, setProjects] = useState<ProjectDto[]>([]);
-    const [activeProject, setActiveProject] = useState<ProjectDto | null>(null);
+export function ProjectProvider({
+    initialProjects,
+    initialActiveProjects,
+    children,
+}: {
+    initialProjects: ProjectDto[];
+    initialActiveProjects: ProjectDto;
+    children: React.ReactNode;
+}) {
+    const [projects, setProjects] = useState<ProjectDto[]>(initialProjects);
+
+    const [activeProject, setActiveProject] = useState<ProjectDto | null>(initialActiveProjects);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<definitions['errs.AppError'] | null>(null);
 
@@ -39,20 +47,12 @@ export function ProjectProvider({ children }: { children: React.ReactNode }) {
         try {
             const projectsData = await getProjects();
             setProjects(projectsData || []);
-
-            if (projectsData && !activeProject) {
-                setActiveProject(projectsData[0]);
-            }
         } catch (e) {
             setError(e as definitions['errs.AppError']);
         } finally {
             setIsLoading(false);
         }
     }, [getProjects]);
-
-    // useEffect(() => {
-    //     refreshProjects();
-    // }, []);
 
     const contextValue: ProjectsContextType = {
         projects,

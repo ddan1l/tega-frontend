@@ -1,4 +1,4 @@
-import '../globals.css';
+import '@/app/globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { AuthProvider } from '@/providers/auth-provider';
 import { fetchInitialUser } from '@/providers/api/fetch-initial-user';

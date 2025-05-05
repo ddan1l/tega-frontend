@@ -47,7 +47,7 @@ export const useProjectForm = () => {
 
             if (result.success) {
                 const href = (slug: string) =>
-                    `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/app`;
+                    `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/`;
 
                 location.href = href(result.data?.project?.slug || '');
 

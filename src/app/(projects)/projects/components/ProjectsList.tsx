@@ -3,17 +3,15 @@ import { Terminal } from 'lucide-react';
 import { definitions } from '@/types/api';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { projectHref } from '@/utils/project-href';
 
 export default function ProjectsList({
     projects,
 }: {
     projects: definitions['project_dto.ProjectDto'][];
 }) {
-    const href = (slug: string) =>
-        `${process.env.NEXT_PUBLIC_FRONTEND_PROTO}//${slug}.${process.env.NEXT_PUBLIC_APP_URL}/app`;
-
     const projectItems = projects.map((project) => (
-        <Link href={href(project?.slug || '')} key={project.id} className="w-full max-w-md">
+        <Link href={projectHref(project?.slug || '')} key={project.id} className="w-full max-w-md">
             <Alert className="hover:border-zinc-950">
                 <Terminal className="h-4 w-4" />
                 <AlertTitle>{project.name}</AlertTitle>

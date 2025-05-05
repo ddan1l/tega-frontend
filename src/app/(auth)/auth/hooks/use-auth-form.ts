@@ -56,7 +56,7 @@ export const useAuthForm = (mode: AuthMode) => {
                     if (!sub) {
                         router.push('/projects');
                     } else {
-                        router.push('/app');
+                        router.push('/');
                     }
 
                     return true;
