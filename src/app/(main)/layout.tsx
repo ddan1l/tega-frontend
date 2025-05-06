@@ -3,7 +3,7 @@ import '@/app/globals.css';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { AuthProvider } from '@/providers/auth-provider';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { AppSidebar } from './components/AppSidebar';
+import { AppSidebar } from './components/app-sidebar';
 import { Separator } from '@/components/ui/separator';
 import {
     Breadcrumb,
@@ -16,6 +16,7 @@ import {
 import { ProjectProvider } from '@/providers/project-provider';
 import { fetchInitialUser } from '@/providers/api/fetch-initial-user';
 import { fetchInitialProjects, getActiveProject } from '@/providers/api/fetch-projects';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -31,10 +32,8 @@ export default async function RootLayout({
     const initialProjects = await fetchInitialProjects();
     const initialActiveProject = await getActiveProject(initialProjects || []);
 
-    return (
-        initialUser &&
-        initialProjects &&
-        initialActiveProject && (
+    if (initialUser && initialProjects && initialActiveProject) {
+        return (
             <html lang="en" suppressHydrationWarning>
                 <head />
                 <body>
@@ -88,6 +87,8 @@ export default async function RootLayout({
                     </AuthProvider>
                 </body>
             </html>
-        )
-    );
+        );
+    }
+
+    redirect('/auth/login');
 }

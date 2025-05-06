@@ -1,6 +1,6 @@
 'use client';
 
-import { CreateProjectForm } from '../components/CreateProjectForm';
+import { CreateProjectForm } from '../components/create-project-form';
 import { useProjectForm } from '../hooks/use-project-form';
 
 export default function ProjectsPage() {

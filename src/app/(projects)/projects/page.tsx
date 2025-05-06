@@ -2,7 +2,7 @@ import { api } from '@/lib/api';
 import { definitions } from '@/types/api';
 import { redirect } from 'next/navigation';
 
-import ProjectsList from './components/ProjectsList';
+import ProjectsList from './components/projects-list';
 import { fetchInitialProjects } from '@/providers/api/fetch-projects';
 
 export default async function ProjectsPage() {

@@ -1,28 +1,23 @@
-'use client';
-
-import * as React from 'react';
 import {
     AudioWaveform,
     BookOpen,
-    Bot,
+    Users,
     Command,
     Frame,
     GalleryVerticalEnd,
     Map,
     PieChart,
     Settings2,
-    SquareTerminal,
+    Rocket,
+    LayoutDashboard,
+    Layers,
+    ChartArea,
+    ChartBar,
+    ChartBarDecreasing,
+    ChartLine,
 } from 'lucide-react';
 
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader } from '@/components/ui/sidebar';
-import { NavMain } from './sidebar/nav-main';
-import { NavUser } from './sidebar/nav-user';
-import { NavProjects } from './sidebar/nax-projects2';
-import { ProjectsSwitcher } from './sidebar/nav-projects';
-import { ThemeTogler } from './header/ThemeToggle';
-
-// This is sample data.
-const data = {
+export default {
     user: {
         name: 'shadcn',
         email: 'm@example.com',
@@ -47,63 +42,74 @@ const data = {
     ],
     navMain: [
         {
-            title: 'Playground',
+            title: 'Main',
             url: '#',
-            icon: SquareTerminal,
+            icon: Layers,
             isActive: true,
             items: [
                 {
-                    title: 'History',
+                    title: 'Summary',
                     url: '#',
                 },
                 {
-                    title: 'Starred',
+                    title: 'Timeline',
                     url: '#',
                 },
                 {
-                    title: 'Settings',
-                    url: '#',
-                },
-            ],
-        },
-        {
-            title: 'Models',
-            url: '#',
-            icon: Bot,
-            items: [
-                {
-                    title: 'Genesis',
+                    title: 'Board',
                     url: '#',
                 },
                 {
-                    title: 'Explorer',
+                    title: 'Calendar',
                     url: '#',
                 },
                 {
-                    title: 'Quantum',
+                    title: 'All tasks',
                     url: '#',
                 },
             ],
         },
         {
-            title: 'Documentation',
+            title: 'Team',
             url: '#',
-            icon: BookOpen,
+            icon: Users,
             items: [
                 {
-                    title: 'Introduction',
+                    title: 'Users',
                     url: '#',
                 },
                 {
-                    title: 'Get Started',
+                    title: 'Roles',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Dashoboards',
+            url: '#',
+            icon: LayoutDashboard,
+            items: [
+                {
+                    title: 'My dashboard',
                     url: '#',
                 },
                 {
-                    title: 'Tutorials',
+                    title: 'All dashboards',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Reports',
+            url: '#',
+            icon: ChartLine,
+            items: [
+                {
+                    title: 'Users',
                     url: '#',
                 },
                 {
-                    title: 'Changelog',
+                    title: 'All',
                     url: '#',
                 },
             ],
@@ -150,22 +156,3 @@ const data = {
         },
     ],
 };
-
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    return (
-        <Sidebar className="sidebar-container" collapsible="icon" {...props}>
-            <SidebarHeader>
-                <ProjectsSwitcher />
-            </SidebarHeader>
-            <SidebarContent>
-                <NavMain items={data.navMain} />
-                <NavProjects projects={data.projects} />
-                <ThemeTogler />
-            </SidebarContent>
-            <SidebarFooter>
-                <NavUser user={data.user} />
-            </SidebarFooter>
-            {/* <SidebarRail /> */}
-        </Sidebar>
-    );
-}

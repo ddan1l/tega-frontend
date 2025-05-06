@@ -39,7 +39,7 @@ export function UserMenu({ initialUser }: { initialUser: definitions['res.UserRe
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">{initialUser.fullname}</Button>
+                <Button variant="outline">{initialUser.fullName}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

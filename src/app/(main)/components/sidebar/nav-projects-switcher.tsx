@@ -17,19 +17,13 @@ import {
     useSidebar,
 } from '@/components/ui/sidebar';
 import { useProjectsContext } from '@/providers/project-provider';
-import { definitions } from '@/types/api';
 import { projectHref } from '@/utils/project-href';
 import Link from 'next/link';
 
-export function ProjectsSwitcher({}) {
+export function NavProjectsSwitcher() {
     const { isMobile } = useSidebar();
 
-    const { projects, activeProject, isLoading, setActiveProject, refreshProjects } =
-        useProjectsContext();
-
-    const setProject = (project: definitions['project_dto.ProjectDto']) => {
-        setActiveProject(project);
-    };
+    const { projects, activeProject, setActiveProject } = useProjectsContext();
 
     return (
         <SidebarMenu>
@@ -69,7 +63,7 @@ export function ProjectsSwitcher({}) {
                                 <Link
                                     href={projectHref(project?.slug || '')}
                                     className="gap-2 p-2"
-                                    onClick={() => setProject(project)}
+                                    onClick={() => setActiveProject(project)}
                                 >
                                     <div className="flex size-6 items-center justify-center rounded-sm border">
                                         <GalleryVerticalEnd className="size-4 shrink-0" />
