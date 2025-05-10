@@ -15,6 +15,7 @@ import {
     ChartBar,
     ChartBarDecreasing,
     ChartLine,
+    Star,
 } from 'lucide-react';
 
 export default {
@@ -23,23 +24,6 @@ export default {
         email: 'm@example.com',
         avatar: 'https://ui.shadcn.com/avatars/shadcn.jpg',
     },
-    teams: [
-        {
-            name: 'Acme Inc',
-            logo: GalleryVerticalEnd,
-            plan: 'Enterprise',
-        },
-        {
-            name: 'Acme Corp.',
-            logo: AudioWaveform,
-            plan: 'Startup',
-        },
-        {
-            name: 'Evil Corp.',
-            logo: Command,
-            plan: 'Free',
-        },
-    ],
     navMain: [
         {
             title: 'Main',
@@ -49,7 +33,7 @@ export default {
             items: [
                 {
                     title: 'Summary',
-                    url: '#',
+                    url: '/',
                 },
                 {
                     title: 'Timeline',
@@ -76,7 +60,7 @@ export default {
             items: [
                 {
                     title: 'Users',
-                    url: '#',
+                    url: '/users',
                 },
                 {
                     title: 'Roles',
@@ -110,6 +94,21 @@ export default {
                 },
                 {
                     title: 'All',
+                    url: '#',
+                },
+            ],
+        },
+        {
+            title: 'Marked',
+            url: '#',
+            icon: Star,
+            items: [
+                {
+                    title: 'Recent',
+                    url: '#',
+                },
+                {
+                    title: 'Starred',
                     url: '#',
                 },
             ],

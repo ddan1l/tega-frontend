@@ -93,15 +93,15 @@ export const api = {
             ),
 
         projects: () =>
-            apiRequest<
-                definitions['res.UserProjectsResponse'],
-                definitions['errs.BadRequestError']
-            >('/user/projects', {
-                method: 'GET',
-            }),
+            apiRequest<definitions['res.ProjectsResponse'], definitions['errs.BadRequestError']>(
+                '/user/projects',
+                {
+                    method: 'GET',
+                }
+            ),
         createProject: (data: definitions['req.CreateProjectRequest']) =>
             apiRequest<
-                definitions['res.UserProjectResponse'],
+                definitions['res.ProjectResponse'],
                 | definitions['errs.BadRequestError']
                 | definitions['errs.ForbiddenError']
                 | definitions['errs.ValidationFailedError']

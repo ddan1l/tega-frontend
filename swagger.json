@@ -7,15 +7,9 @@
         "/auth/login": {
             "post": {
                 "description": "Authenticate user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "auth"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["auth"],
                 "summary": "User login",
                 "parameters": [
                     {
@@ -95,15 +89,9 @@
         "/auth/logout": {
             "post": {
                 "description": "Logout user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "auth"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["auth"],
                 "summary": "User logout",
                 "responses": {
                     "200": {
@@ -136,15 +124,9 @@
         "/auth/register": {
             "post": {
                 "description": "Register user",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "auth"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["auth"],
                 "summary": "User register",
                 "parameters": [
                     {
@@ -224,15 +206,9 @@
         "/user": {
             "get": {
                 "description": "AuthenticatedUser",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["user"],
                 "summary": "User",
                 "responses": {
                     "200": {
@@ -277,15 +253,9 @@
         "/user/project": {
             "post": {
                 "description": "Create Project",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["user"],
                 "summary": "Create Project",
                 "parameters": [
                     {
@@ -310,7 +280,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/res.UserProjectResponse"
+                                            "$ref": "#/definitions/res.ProjectResponse"
                                         }
                                     }
                                 }
@@ -377,15 +347,9 @@
         "/user/projects": {
             "get": {
                 "description": "UserProjects",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "user"
-                ],
+                "consumes": ["application/json"],
+                "produces": ["application/json"],
+                "tags": ["user"],
                 "summary": "Projects",
                 "responses": {
                     "200": {
@@ -399,7 +363,7 @@
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/res.UserProjectsResponse"
+                                            "$ref": "#/definitions/res.ProjectsResponse"
                                         }
                                     }
                                 }
@@ -604,10 +568,7 @@
         },
         "req.CreateProjectRequest": {
             "type": "object",
-            "required": [
-                "name",
-                "slug"
-            ],
+            "required": ["name", "slug"],
             "properties": {
                 "description": {
                     "type": "string"
@@ -624,10 +585,7 @@
         },
         "req.LoginUserRequest": {
             "type": "object",
-            "required": [
-                "email",
-                "password"
-            ],
+            "required": ["email", "password"],
             "properties": {
                 "email": {
                     "type": "string"
@@ -641,11 +599,7 @@
         },
         "req.RegisterUserRequest": {
             "type": "object",
-            "required": [
-                "email",
-                "fullname",
-                "password"
-            ],
+            "required": ["email", "fullname", "password"],
             "properties": {
                 "email": {
                     "type": "string"
@@ -692,7 +646,7 @@
                 }
             }
         },
-        "res.UserProjectResponse": {
+        "res.ProjectResponse": {
             "type": "object",
             "properties": {
                 "project": {
@@ -700,7 +654,7 @@
                 }
             }
         },
-        "res.UserProjectsResponse": {
+        "res.ProjectsResponse": {
             "type": "object",
             "properties": {
                 "projects": {

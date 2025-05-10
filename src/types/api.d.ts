@@ -4,291 +4,291 @@
  */
 
 export interface paths {
-  "/auth/login": {
-    /** Authenticate user */
-    post: {
-      parameters: {
-        body: {
-          /** Login credentials */
-          request: definitions["req.LoginUserRequest"];
+    '/auth/login': {
+        /** Authenticate user */
+        post: {
+            parameters: {
+                body: {
+                    /** Login credentials */
+                    request: definitions['req.LoginUserRequest'];
+                };
+            };
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessResponse'];
+                };
+                /** Unauthorized */
+                401: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.IncorrectPasswordError'];
+                    };
+                };
+                /** Not Found */
+                404: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.UserNotFoundError'];
+                    };
+                };
+                /** Unprocessable Entity */
+                422: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ValidationFailedError'];
+                    };
+                };
+            };
         };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessResponse"];
-        };
-        /** Unauthorized */
-        401: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.IncorrectPasswordError"];
-          };
-        };
-        /** Not Found */
-        404: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.UserNotFoundError"];
-          };
-        };
-        /** Unprocessable Entity */
-        422: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ValidationFailedError"];
-          };
-        };
-      };
     };
-  };
-  "/auth/logout": {
-    /** Logout user */
-    post: {
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessResponse"];
+    '/auth/logout': {
+        /** Logout user */
+        post: {
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessResponse'];
+                };
+                /** Bad Request */
+                400: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.AuthError'];
+                    };
+                };
+            };
         };
-        /** Bad Request */
-        400: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.AuthError"];
-          };
-        };
-      };
     };
-  };
-  "/auth/register": {
-    /** Register user */
-    post: {
-      parameters: {
-        body: {
-          /** Register credentials */
-          request: definitions["req.RegisterUserRequest"];
+    '/auth/register': {
+        /** Register user */
+        post: {
+            parameters: {
+                body: {
+                    /** Register credentials */
+                    request: definitions['req.RegisterUserRequest'];
+                };
+            };
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessResponse'];
+                };
+                /** Not Found */
+                404: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.AppError'];
+                    };
+                };
+                /** Conflict */
+                409: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.AlreadyExistsError'];
+                    };
+                };
+                /** Unprocessable Entity */
+                422: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ValidationFailedError'];
+                    };
+                };
+            };
         };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessResponse"];
-        };
-        /** Not Found */
-        404: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.AppError"];
-          };
-        };
-        /** Conflict */
-        409: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.AlreadyExistsError"];
-          };
-        };
-        /** Unprocessable Entity */
-        422: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ValidationFailedError"];
-          };
-        };
-      };
     };
-  };
-  "/user": {
-    /** AuthenticatedUser */
-    get: {
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessWithDataResponse"] & {
-            data?: definitions["res.UserResponse"];
-          };
+    '/user': {
+        /** AuthenticatedUser */
+        get: {
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessWithDataResponse'] & {
+                        data?: definitions['res.UserResponse'];
+                    };
+                };
+                /** Forbidden */
+                403: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ForbiddenError'];
+                    };
+                };
+            };
         };
-        /** Forbidden */
-        403: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ForbiddenError"];
-          };
-        };
-      };
     };
-  };
-  "/user/project": {
-    /** Create Project */
-    post: {
-      parameters: {
-        body: {
-          /** Create project request */
-          request: definitions["req.CreateProjectRequest"];
+    '/user/project': {
+        /** Create Project */
+        post: {
+            parameters: {
+                body: {
+                    /** Create project request */
+                    request: definitions['req.CreateProjectRequest'];
+                };
+            };
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessWithDataResponse'] & {
+                        data?: definitions['res.ProjectResponse'];
+                    };
+                };
+                /** Bad Request */
+                400: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.BadRequestError'];
+                    };
+                };
+                /** Forbidden */
+                403: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ForbiddenError'];
+                    };
+                };
+                /** Unprocessable Entity */
+                422: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ValidationFailedError'];
+                    };
+                };
+            };
         };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessWithDataResponse"] & {
-            data?: definitions["res.UserProjectResponse"];
-          };
-        };
-        /** Bad Request */
-        400: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.BadRequestError"];
-          };
-        };
-        /** Forbidden */
-        403: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ForbiddenError"];
-          };
-        };
-        /** Unprocessable Entity */
-        422: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ValidationFailedError"];
-          };
-        };
-      };
     };
-  };
-  "/user/projects": {
-    /** UserProjects */
-    get: {
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["res.SuccessWithDataResponse"] & {
-            data?: definitions["res.UserProjectsResponse"];
-          };
+    '/user/projects': {
+        /** UserProjects */
+        get: {
+            responses: {
+                /** OK */
+                200: {
+                    schema: definitions['res.SuccessWithDataResponse'] & {
+                        data?: definitions['res.ProjectsResponse'];
+                    };
+                };
+                /** Bad Request */
+                400: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.BadRequestError'];
+                    };
+                };
+                /** Forbidden */
+                403: {
+                    schema: definitions['res.ErrorResponse'] & {
+                        error?: definitions['errs.ForbiddenError'];
+                    };
+                };
+            };
         };
-        /** Bad Request */
-        400: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.BadRequestError"];
-          };
-        };
-        /** Forbidden */
-        403: {
-          schema: definitions["res.ErrorResponse"] & {
-            error?: definitions["errs.ForbiddenError"];
-          };
-        };
-      };
     };
-  };
 }
 
 export interface definitions {
-  "errs.AlreadyExistsError": {
-    /** @example ALREADY_EXISTS */
-    code?: string;
-    /** @example User already exists. */
-    message?: string;
-    /** @example 409 */
-    status?: number;
-  };
-  "errs.AppError": {
-    code?: string;
-    details?: unknown;
-    message?: string;
-    status?: number;
-  };
-  "errs.AuthError": {
-    /** @example AUTH_FAILED */
-    code?: string;
-    /** @example Failded authorize user. */
-    message?: string;
-    /** @example 400 */
-    status?: number;
-  };
-  "errs.BadRequestError": {
-    /** @example BAD_REQUEST */
-    code?: string;
-    /** @example Bad request. */
-    message?: string;
-    /** @example 400 */
-    status?: number;
-  };
-  "errs.ForbiddenError": {
-    /** @example FORBIDDEN */
-    code?: string;
-    /** @example Forbidden. */
-    message?: string;
-    /** @example 403 */
-    status?: number;
-  };
-  "errs.IncorrectPasswordError": {
-    /** @example INCORRECT_PASSWORD */
-    code?: string;
-    /** @example Incorrect password. */
-    message?: string;
-    /** @example 401 */
-    status?: number;
-  };
-  "errs.UserNotFoundError": {
-    /** @example USER_NOT_FOUND */
-    code?: string;
-    /** @example User not found. */
-    message?: string;
-    /** @example 400 */
-    status?: number;
-  };
-  "errs.ValidationFailedError": {
-    /** @example VALIDATION */
-    code?: string;
-    /** @example Validation error. */
-    message?: string;
-    /** @example 422 */
-    status?: number;
-  };
-  "project_dto.ProjectDto": {
-    /** @example test description */
-    description?: string;
-    /** @example 1 */
-    id?: number;
-    /** @example test */
-    name?: string;
-    /** @example test */
-    slug?: string;
-  };
-  "req.CreateProjectRequest": {
-    description?: string;
-    name: string;
-    slug: string;
-  };
-  "req.LoginUserRequest": {
-    email: string;
-    password: string;
-  };
-  "req.RegisterUserRequest": {
-    email: string;
-    fullname: string;
-    password: string;
-  };
-  "res.ErrorResponse": {
-    error?: definitions["errs.AppError"];
-    /** @example false */
-    success?: boolean;
-  };
-  "res.SuccessResponse": {
-    /** @example true */
-    success?: boolean;
-  };
-  "res.SuccessWithDataResponse": {
-    data?: unknown;
-    /** @example true */
-    success?: boolean;
-  };
-  "res.UserProjectResponse": {
-    project?: definitions["project_dto.ProjectDto"];
-  };
-  "res.UserProjectsResponse": {
-    projects?: definitions["project_dto.ProjectDto"][];
-  };
-  "res.UserResponse": {
-    /** @example john@john.com */
-    email?: string;
-    /** @example John */
-    fullName?: string;
-    /** @example 1 */
-    id?: number;
-  };
+    'errs.AlreadyExistsError': {
+        /** @example ALREADY_EXISTS */
+        code?: string;
+        /** @example User already exists. */
+        message?: string;
+        /** @example 409 */
+        status?: number;
+    };
+    'errs.AppError': {
+        code?: string;
+        details?: unknown;
+        message?: string;
+        status?: number;
+    };
+    'errs.AuthError': {
+        /** @example AUTH_FAILED */
+        code?: string;
+        /** @example Failded authorize user. */
+        message?: string;
+        /** @example 400 */
+        status?: number;
+    };
+    'errs.BadRequestError': {
+        /** @example BAD_REQUEST */
+        code?: string;
+        /** @example Bad request. */
+        message?: string;
+        /** @example 400 */
+        status?: number;
+    };
+    'errs.ForbiddenError': {
+        /** @example FORBIDDEN */
+        code?: string;
+        /** @example Forbidden. */
+        message?: string;
+        /** @example 403 */
+        status?: number;
+    };
+    'errs.IncorrectPasswordError': {
+        /** @example INCORRECT_PASSWORD */
+        code?: string;
+        /** @example Incorrect password. */
+        message?: string;
+        /** @example 401 */
+        status?: number;
+    };
+    'errs.UserNotFoundError': {
+        /** @example USER_NOT_FOUND */
+        code?: string;
+        /** @example User not found. */
+        message?: string;
+        /** @example 400 */
+        status?: number;
+    };
+    'errs.ValidationFailedError': {
+        /** @example VALIDATION */
+        code?: string;
+        /** @example Validation error. */
+        message?: string;
+        /** @example 422 */
+        status?: number;
+    };
+    'project_dto.ProjectDto': {
+        /** @example test description */
+        description?: string;
+        /** @example 1 */
+        id?: number;
+        /** @example test */
+        name?: string;
+        /** @example test */
+        slug?: string;
+    };
+    'req.CreateProjectRequest': {
+        description?: string;
+        name: string;
+        slug: string;
+    };
+    'req.LoginUserRequest': {
+        email: string;
+        password: string;
+    };
+    'req.RegisterUserRequest': {
+        email: string;
+        fullname: string;
+        password: string;
+    };
+    'res.ErrorResponse': {
+        error?: definitions['errs.AppError'];
+        /** @example false */
+        success?: boolean;
+    };
+    'res.SuccessResponse': {
+        /** @example true */
+        success?: boolean;
+    };
+    'res.SuccessWithDataResponse': {
+        data?: unknown;
+        /** @example true */
+        success?: boolean;
+    };
+    'res.ProjectResponse': {
+        project?: definitions['project_dto.ProjectDto'];
+    };
+    'res.ProjectsResponse': {
+        projects?: definitions['project_dto.ProjectDto'][];
+    };
+    'res.UserResponse': {
+        /** @example john@john.com */
+        email?: string;
+        /** @example John */
+        fullName?: string;
+        /** @example 1 */
+        id?: number;
+    };
 }
 
 export interface operations {}
