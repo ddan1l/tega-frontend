@@ -7,9 +7,15 @@
         "/auth/login": {
             "post": {
                 "description": "Authenticate user",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["auth"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
                 "summary": "User login",
                 "parameters": [
                     {
@@ -89,9 +95,15 @@
         "/auth/logout": {
             "post": {
                 "description": "Logout user",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["auth"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
                 "summary": "User logout",
                 "responses": {
                     "200": {
@@ -124,9 +136,15 @@
         "/auth/register": {
             "post": {
                 "description": "Register user",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["auth"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "auth"
+                ],
                 "summary": "User register",
                 "parameters": [
                     {
@@ -203,59 +221,18 @@
                 }
             }
         },
-        "/user": {
-            "get": {
-                "description": "AuthenticatedUser",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["user"],
-                "summary": "User",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/res.SuccessWithDataResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/res.UserResponse"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/res.ErrorResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "error": {
-                                            "$ref": "#/definitions/errs.ForbiddenError"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/user/project": {
+        "/project": {
             "post": {
                 "description": "Create Project",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["user"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
                 "summary": "Create Project",
                 "parameters": [
                     {
@@ -344,12 +321,160 @@
                 }
             }
         },
-        "/user/projects": {
+        "/project/user": {
+            "get": {
+                "description": "Project user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "Project user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.SuccessWithDataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/res.ProjectUserResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.BadRequestError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ForbiddenError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/project/users": {
+            "get": {
+                "description": "Project users",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
+                "summary": "Project users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.SuccessWithDataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/res.ProjectUsersResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.BadRequestError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ForbiddenError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/projects": {
             "get": {
                 "description": "UserProjects",
-                "consumes": ["application/json"],
-                "produces": ["application/json"],
-                "tags": ["user"],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "project"
+                ],
                 "summary": "Projects",
                 "responses": {
                     "200": {
@@ -408,6 +533,112 @@
                     }
                 }
             }
+        },
+        "/user": {
+            "get": {
+                "description": "AuthenticatedUser",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "User",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.SuccessWithDataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/res.UserResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ForbiddenError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/app": {
+            "get": {
+                "description": "User app",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "User app",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.SuccessWithDataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/res.UserAppResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/res.ErrorResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "$ref": "#/definitions/errs.ForbiddenError"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -420,7 +651,7 @@
                 },
                 "message": {
                     "type": "string",
-                    "example": "User already exists."
+                    "example": "Already exists."
                 },
                 "status": {
                     "type": "integer",
@@ -566,9 +797,39 @@
                 }
             }
         },
+        "project_dto.ProjectUserDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "project": {
+                    "$ref": "#/definitions/project_dto.ProjectDto"
+                },
+                "project_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "role_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "user": {
+                    "$ref": "#/definitions/user_dto.UserDto"
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
         "req.CreateProjectRequest": {
             "type": "object",
-            "required": ["name", "slug"],
+            "required": [
+                "name",
+                "slug"
+            ],
             "properties": {
                 "description": {
                     "type": "string"
@@ -585,7 +846,10 @@
         },
         "req.LoginUserRequest": {
             "type": "object",
-            "required": ["email", "password"],
+            "required": [
+                "email",
+                "password"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -599,7 +863,11 @@
         },
         "req.RegisterUserRequest": {
             "type": "object",
-            "required": ["email", "fullname", "password"],
+            "required": [
+                "email",
+                "fullname",
+                "password"
+            ],
             "properties": {
                 "email": {
                     "type": "string"
@@ -627,6 +895,44 @@
                 }
             }
         },
+        "res.ProjectResponse": {
+            "type": "object",
+            "properties": {
+                "project": {
+                    "$ref": "#/definitions/project_dto.ProjectDto"
+                }
+            }
+        },
+        "res.ProjectUserResponse": {
+            "type": "object",
+            "properties": {
+                "projectUser": {
+                    "$ref": "#/definitions/project_dto.ProjectUserDto"
+                }
+            }
+        },
+        "res.ProjectUsersResponse": {
+            "type": "object",
+            "properties": {
+                "projectUsers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/project_dto.ProjectUserDto"
+                    }
+                }
+            }
+        },
+        "res.ProjectsResponse": {
+            "type": "object",
+            "properties": {
+                "projects": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/project_dto.ProjectDto"
+                    }
+                }
+            }
+        },
         "res.SuccessResponse": {
             "type": "object",
             "properties": {
@@ -646,17 +952,12 @@
                 }
             }
         },
-        "res.ProjectResponse": {
+        "res.UserAppResponse": {
             "type": "object",
             "properties": {
-                "project": {
-                    "$ref": "#/definitions/project_dto.ProjectDto"
-                }
-            }
-        },
-        "res.ProjectsResponse": {
-            "type": "object",
-            "properties": {
+                "projectUser": {
+                    "$ref": "#/definitions/project_dto.ProjectUserDto"
+                },
                 "projects": {
                     "type": "array",
                     "items": {
@@ -666,6 +967,23 @@
             }
         },
         "res.UserResponse": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "john@john.com"
+                },
+                "fullName": {
+                    "type": "string",
+                    "example": "John"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "user_dto.UserDto": {
             "type": "object",
             "properties": {
                 "email": {

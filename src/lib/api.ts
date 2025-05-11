@@ -1,3 +1,4 @@
+import { getSubdomain } from '@/lib/utils/get-subdomain';
 import type { definitions } from '../types/api';
 
 type ApiSuccess<T> = {
@@ -34,9 +35,17 @@ async function apiRequest<T, E = definitions['errs.AppError']>(
     };
 
     if (!process.browser) {
-        const { cookies } = await import('next/headers');
+        const { cookies, headers } = await import('next/headers');
+        const headersList = await headers();
+
+        const subdomain = {
+            'X-Subdomain':
+                headersList.get('X-Subdomain') || getSubdomain(headersList.get('host') || '') || '',
+        };
+
         options.headers = {
             ...options.headers,
+            ...subdomain,
             Cookie: (await cookies()).toString(),
         };
     }
@@ -92,9 +101,17 @@ export const api = {
                 }
             ),
 
+        userApp: () =>
+            apiRequest<definitions['res.UserAppResponse'], definitions['errs.ForbiddenError']>(
+                '/user/app',
+                {
+                    method: 'GET',
+                }
+            ),
+
         projects: () =>
             apiRequest<definitions['res.ProjectsResponse'], definitions['errs.BadRequestError']>(
-                '/user/projects',
+                '/projects',
                 {
                     method: 'GET',
                 }
@@ -105,7 +122,7 @@ export const api = {
                 | definitions['errs.BadRequestError']
                 | definitions['errs.ForbiddenError']
                 | definitions['errs.ValidationFailedError']
-            >('/user/project', {
+            >('/project', {
                 method: 'POST',
                 body: JSON.stringify(data),
             }),
