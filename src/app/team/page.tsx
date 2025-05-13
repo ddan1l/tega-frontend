@@ -8,12 +8,12 @@ export default function UsersPage() {
     const { setBreadcrumbs } = useBreadcrumbs();
 
     useEffect(() => {
-        setBreadcrumbs(getBreadcrumbs(`/team/users`));
+        setBreadcrumbs(getBreadcrumbs(`/team`));
     }, []);
 
     return (
         <>
-            <h1>Users</h1>
+            <h1>Team</h1>
         </>
     );
 }

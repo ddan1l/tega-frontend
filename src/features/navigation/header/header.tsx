@@ -11,14 +11,11 @@ import {
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useBreadcrumbs } from '@/features/navigation/breadcrumbs/provider';
 import { Separator } from '@radix-ui/react-separator';
+import Link from 'next/link';
 import { Fragment } from 'react';
 
 export function AppHeader() {
     const { breadcrumbs } = useBreadcrumbs();
-
-    if (!breadcrumbs.length) {
-        return '';
-    }
 
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
@@ -31,8 +28,8 @@ export function AppHeader() {
                             <Fragment key={`crumb-${index}`}>
                                 <BreadcrumbItem className="hidden md:block">
                                     {crumb.href ? (
-                                        <BreadcrumbLink href={crumb.href}>
-                                            {crumb.title}
+                                        <BreadcrumbLink asChild>
+                                            <Link href={crumb.href}> {crumb.title}</Link>
                                         </BreadcrumbLink>
                                     ) : (
                                         <BreadcrumbPage>{crumb.title}</BreadcrumbPage>

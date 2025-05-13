@@ -4,6 +4,7 @@ import { fetchInitialApp } from '@/features/app/api/fetch-app';
 import { BreadcrumbsProvider } from '@/features/navigation/breadcrumbs/provider';
 import { definitions } from '@/types/api';
 import { ThemeProvider } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { createContext, useCallback, useContext, useState } from 'react';
 
 type AppDto = {
@@ -28,6 +29,7 @@ export function AppProvider({
     initialApp: AppDto;
     children: React.ReactNode;
 }) {
+    const pathname = usePathname();
     const [app, setApp] = useState<AppDto | null>(initialApp);
 
     const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +72,7 @@ export function AppProvider({
                 enableSystem
                 disableTransitionOnChange
             >
-                <BreadcrumbsProvider>{children}</BreadcrumbsProvider>
+                <BreadcrumbsProvider pathname={pathname}>{children}</BreadcrumbsProvider>
             </ThemeProvider>
         </AppContext.Provider>
     );
@@ -82,4 +84,7 @@ export function useAppContext(): AppContextType {
         throw new Error('useAppContext must be used within a ProjectProvider');
     }
     return context;
+}
+function userPathname(): any {
+    throw new Error('Function not implemented.');
 }

@@ -1,15 +1,12 @@
 'use client';
 
 import { createContext, useContext, useState } from 'react';
-
-type Crumb = {
-    title: string;
-    href?: string;
-};
+import { getBreadcrumbs } from './breadcrumbs-map';
+import { BreadcrumbItem } from './types';
 
 type BreadcrumbsContextType = {
-    breadcrumbs: Crumb[];
-    setBreadcrumbs: (crumbs: Crumb[]) => void;
+    breadcrumbs: BreadcrumbItem[];
+    setBreadcrumbs: (crumbs: BreadcrumbItem[]) => void;
 };
 
 const BreadcrumbsContext = createContext<BreadcrumbsContextType>({
@@ -17,8 +14,14 @@ const BreadcrumbsContext = createContext<BreadcrumbsContextType>({
     setBreadcrumbs: () => {},
 });
 
-export function BreadcrumbsProvider({ children }: { children: React.ReactNode }) {
-    const [breadcrumbs, setBreadcrumbs] = useState<Crumb[]>([]);
+export function BreadcrumbsProvider({
+    children,
+    pathname,
+}: {
+    children: React.ReactNode;
+    pathname: string;
+}) {
+    const [breadcrumbs, setBreadcrumbs] = useState<BreadcrumbItem[]>(getBreadcrumbs(pathname));
 
     return (
         <BreadcrumbsContext.Provider value={{ breadcrumbs, setBreadcrumbs }}>

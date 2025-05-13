@@ -9,6 +9,7 @@ import { fetchInitialApp } from '@/features/app/api/fetch-app';
 import { AppProvider } from '@/features/app/provider';
 import { AppHeader } from '@/features/navigation/header/header';
 import { AppSidebar } from '@/features/navigation/sidebar/sidebar';
+import { headers } from 'next/headers';
 
 export const metadata: Metadata = {
     title: 'Tega',
@@ -23,6 +24,8 @@ export default async function RootLayout({
     const initialApp = await fetchInitialApp().catch((e) => {
         console.error(e);
     });
+
+    const pathname = (await headers()).get('x-pathname') || '/';
 
     if (initialApp) {
         return (
